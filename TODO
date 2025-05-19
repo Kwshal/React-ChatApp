@@ -1,0 +1,18 @@
+App
+├── LoginPage──
+│   ├── LoginForm
+│   └── ForgotPassword
+│       ├── ResetPasswordForm
+├── ChatPage
+│   ├── Sidebar
+│   │   ├── UserList
+│   │   └── LogoutButton
+│   └── ChatWindow
+│       ├── MessageList
+│       ├── MessageInput
+│       └── TypingIndicator
+└── ErrorPage
+
+
+
+problem: logic and signup is same.
