@@ -43,6 +43,8 @@ body {
   justify-content: center;
   align-items: center;
   width: min(100vw, 350px);
+
+  
   height: 100vh;
   padding: 20px;
   background: white;
