@@ -42,7 +42,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 300px;
+  width: min(100%, 400px);
   height: 100vh;
   padding: 20px;
   background: white;

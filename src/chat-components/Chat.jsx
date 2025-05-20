@@ -1,10 +1,21 @@
 import Button from "../components/Button"
+import ChatHeader from "./ChatHeader"
 
 function ChatPage({ logOut }) {
      return (
           <div className="chat-page">
-               <h1>Chat Page</h1>
-               <p>This is the chat page.</p>
+               <ChatHeader logOut={logOut} />
+               <div className="chat-container">
+                    <div className="user-list">
+                         <h2>Users</h2>
+                         <ul>
+                              {/* List of users will be displayed here */}
+                              <li>User 1</li>
+                              <li>User 2</li>
+                              <li>User 3</li>
+                         </ul>
+                    </div>
+               </div>
                <div className="chat-window">
                     <div className="messages">
                          {/* Messages will be displayed here */}
