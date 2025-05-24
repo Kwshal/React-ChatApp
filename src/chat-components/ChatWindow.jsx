@@ -1,6 +1,22 @@
+import React, { useState } from "react";
 import Button from "../components/Button"
 
 let ChatWindow = ({ user, back }) => {
+     const [messages, setMessages] = useState([
+          "These are some",
+          "Sample",
+          "Texts",
+          "Message 4",
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum praesentium quo quasi a suscipit exercitationem necessitatibus quas ipsam beatae culpa? Amet sapiente, deleniti laborum repellendus soluta tenetur iure velit mollitia!"
+     ]);
+     const [inputValue, setInputValue] = useState("");
+
+     const sendText = () => {
+          if (inputValue.trim() !== "") {
+               setMessages([...messages, inputValue]);
+               setInputValue("");
+          }
+     }
 
      return (
           <div className="chat-window">
@@ -12,16 +28,20 @@ let ChatWindow = ({ user, back }) => {
                </div>
                <div className="chat-window-content">
                     <div className="chat-window-messages">
-                         <p className="message">These are some</p>
-                         <p className="message">Sample</p>
-                         <p className="message">Texts</p>
-                         <p className="message">Message 4</p>
-                         <p className="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum praesentium quo quasi a suscipit exercitationem necessitatibus quas ipsam beatae culpa? Amet sapiente, deleniti laborum repellendus soluta tenetur iure velit mollitia!</p>
+                         {messages.map((msg, idx) => (
+                              <p className="message reply" key={idx}>{msg}</p>
+                         ))}
                     </div>
-                    <div className="chat-window-input">
-                         <input type="text" placeholder="Type a message..." />
-                         <Button id="send" type="button" btnText="Send" />
-                    </div>
+               </div>
+               <div className="chat-window-input">
+                    <input
+                         type="text"
+                         placeholder="Type a message..."
+                         value={inputValue}
+                         onChange={e => setInputValue(e.target.value)}
+                         onKeyDown={e => { if (e.key === "Enter") sendText(); }}
+                    />
+                    <Button id="send" type="button" btnText="Send" onClick={sendText} />
                </div>
           </div>
      )

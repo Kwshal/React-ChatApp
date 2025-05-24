@@ -28,7 +28,7 @@
   /* border: 1px solid #000; */
   width: clamp(200px, 75%, 250px);
   height: 100vh;
-  background-color: #fff;
+  background-color: #f6f6f6;
   padding: 20px 0;
   box-shadow: -4px 0 5px rgba(129, 129, 129, 0.1);
   z-index: 1;
@@ -222,7 +222,8 @@ hr {
   background-color: #fff;
   /* border-bottom: 1px solid #ccc; */
   /* box-shadow: 0 3px 3px -4px #0000001f; */
-  position: sticky;
+  width: clamp(300px, 100vw, 350px);
+  position: fixed;
   top: 0;
   z-index: 1;
 }
@@ -238,9 +239,7 @@ hr {
 .chat-window-content {
   flex-grow: 1;
   overflow-y: auto;
-  scrollbar-color: transparent transparent;
   scrollbar-width: none;
-  /* padding: 20px; */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -249,8 +248,10 @@ hr {
 .chat-window-messages {
   flex-grow: 1;
   overflow-y: auto;
+  scrollbar-width: none;
   padding: 10px;
   display: flex;
+  justify-content: flex-end;
   flex-direction: column;
   gap: 4px;
 }
@@ -262,6 +263,10 @@ hr {
   width: fit-content;
   max-width: 80%;
   word-wrap: break-word;
+}
+.message.reply {
+  background-color: #d1e7dd;
+  align-self: flex-end;
 }
 
 .chat-window-input {
