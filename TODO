@@ -1,3 +1,5 @@
+make "ugly" ui !!!!!!!!!!!!!!
+
 App
 ├── LoginPage──
 │   ├── LoginForm
@@ -13,6 +15,4 @@ App
 │       └── TypingIndicator
 └── ErrorPage
 
-
-
-problem: logic and signup is same.
+problem: logic and signup is same. now changed
