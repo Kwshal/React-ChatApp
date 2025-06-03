@@ -12,7 +12,9 @@ App
 │   └── ChatWindow
 │       ├── MessageList
 │       ├── MessageInput
-│       └── TypingIndicator
+│       └─ TypingIndicator
 └── ErrorPage
 
 problem: logic and signup is same. now changed
+
+add girebase - incomplete

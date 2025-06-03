@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "../components/Button"
+import { writeUserData } from "../db";
 
 let ChatWindow = ({ user, back }) => {
+     
      const [messages, setMessages] = useState([
           "These are some",
           "Sample",
@@ -41,7 +43,7 @@ let ChatWindow = ({ user, back }) => {
                          onChange={e => setInputValue(e.target.value)}
                          onKeyDown={e => { if (e.key === "Enter") sendText(); }}
                     />
-                    <Button id="send" type="button" btnText="Send" onClick={sendText} />
+                    <Button id="send" type="button" btnText="Send" btnFunction={sendText} />
                </div>
           </div>
      )

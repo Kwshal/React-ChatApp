@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import StatusMessage from "./StatusMessage";
 import Button from "../components/Button";
+import { getUser } from "../db";
 
 function LoginForm({ logIn, signUp }) {
 
      const [username, setUsername] = useState("");
      const [password, setPassword] = useState("");
+     const [user, setUser] = useState(null);
      const [statusMessage, setStatusMessage] = useState("");
 
      const handleUsernameInput = () => {
@@ -19,8 +21,28 @@ function LoginForm({ logIn, signUp }) {
           setStatusMessage("");
      };
      useEffect(() => {
-          //? check gor user on the server with a little delay and loader.
-          //? remove the loader and set the status message
+          const username = document.getElementById("username");
+          username.focus();
+     }, []);
+
+     useEffect(() => {
+          setTimeout(() => {
+               username && getUser(username)
+                    .then(data => {
+                         if (data) {
+                              // console.log("Fetched user data:", data);
+                              setUser(data);
+                              setStatusMessage("User found.");
+                         } else {
+                              // setUser(null);
+                              setStatusMessage("User not found.");
+                         }
+                    })
+                    .catch(() => {
+                         setUser(null);
+                         setStatusMessage("Error fetching user data.");
+                    });
+          }, 400);
      }, [username]);
 
      // Mock user data
@@ -30,13 +52,14 @@ function LoginForm({ logIn, signUp }) {
           { username: "user2", password: "pass2" },
           { username: "user3", password: "pass3" }
      ];
+     // let user = getUser();
 
      const handleEnterButtonClick = (e) => {
           e.preventDefault();
           if (username.trim() === "") {
                setStatusMessage("Please enter a username.");
           }
-          else if (!userList.some(user => user.username === username.trim())) {
+          else if (!user.username === username.trim()) {
                setStatusMessage("Username not found.");
           }
           else if (username.trim() === "" && password.trim() === "") {
@@ -45,9 +68,9 @@ function LoginForm({ logIn, signUp }) {
           else if (password.trim() === "") {
                setStatusMessage("Please enter a password.");
           }
-          else if (userList.some(user => user.username === username.trim())) {
-               if (userList.some(user => user.password === password.trim())) {
-                    setStatusMessage("Welcome to ChatApp!");
+          else if (user.username === username.trim()) {
+               if (user.password === password.trim()) {
+                    // setStatusMessage("Welcome to ChatApp!");
                     logIn(); //?
                } else {
                     setStatusMessage("Incorrect password.");
@@ -55,6 +78,7 @@ function LoginForm({ logIn, signUp }) {
           } else {
                setStatusMessage("");
           }
+
      };
 
      return (

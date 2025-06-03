@@ -179,7 +179,7 @@ hr {
   position: absolute;
   left: 5px;
   height: 20px;
-  background-color: #fff;
+  background-color: #ffffff00;
   color: #000000;
   font-variant: small-caps;
   font-size: large;
@@ -196,7 +196,7 @@ hr {
 }
 
 #options {
-  background-color: #fff;
+  background-color: #ffffff00;
   position: absolute;
   right: 10px;
   font-size: x-large;
@@ -219,10 +219,11 @@ hr {
   justify-content: center;
   align-items: center;
   padding: 5px;
-  background-color: #fff;
+  background-color: #ffffffaa;
   /* border-bottom: 1px solid #ccc; */
   /* box-shadow: 0 3px 3px -4px #0000001f; */
   width: clamp(300px, 100vw, 350px);
+  backdrop-filter: blur(1px);
   position: fixed;
   top: 0;
   z-index: 1;
@@ -230,7 +231,7 @@ hr {
 .chat-window-header hr {
   width: calc(100% - 20px);
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #0000003d;
   margin: 0;
   position: absolute;
   bottom: 0;
@@ -246,20 +247,24 @@ hr {
 }
 
 .chat-window-messages {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   overflow-y: auto;
   scrollbar-width: none;
   padding: 10px;
   display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
   gap: 4px;
 }
 
 .chat-window-messages .message {
   padding: 10px;
-  border-radius: 9px;
+  border-radius: 15px;
   background-color: #f1f1f1;
+  height: fit-content;
+  max-height: 200px;
   width: fit-content;
   max-width: 80%;
   word-wrap: break-word;
