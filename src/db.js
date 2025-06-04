@@ -32,13 +32,13 @@ let getAllUsers = () => {
 }
 // get certain user 
 let getUser = (user) => {
-    return get(ref(db, `users/${user}`)).then((snapshot) => {
-        if (snapshot.exists()) {
-            return snapshot.val();
-        } else {
-            return null; // <--- Return null instead of throwing
-        }
-    });
+     return get(ref(db, `users/${user}`)).then((snapshot) => {
+          if (snapshot.exists()) {
+               return snapshot.val();
+          } else {
+               return null; // <--- Return null instead of throwing
+          }
+     });
 }
 
 
@@ -60,15 +60,43 @@ function writeUserData(name, password) {
      });
 }
 
+function saveMsgsToCloud(user, contact, msg) {
+     const contactRef = ref(db, `users/${user}/contacts/${contact}`);
+     const sentTextRef = push(contactRef);
+     set(sentTextRef, {
+          msg: msg,
+          timestamp: new Date().toLocaleTimeString(),
+          type: "sent"
+     });
+     const userRef = ref(db, `users/${contact}/contacts/${user}`);
+     const receivedTextRef = push(userRef);
+     set(receivedTextRef, {
+          msg: msg,
+          timestamp: new Date().toLocaleTimeString(),
+          type: "received"
+     });
+}
+
+function getMsgsFromCloud(user, contact) {
+     const contactRef = ref(db, `users/${user}/contacts/${contact}`);
+     return get(contactRef).then((snapshot) => {
+          if (snapshot.exists()) {
+               return snapshot.val();
+          } else {
+               return null; // No messages found
+          }
+     });
+}
+
 // Function to read data from the database
 function readUserData(userId) {
      return get(ref(db, `users/${userId}`)).then((snapshot) => {
-               if (snapshot.exists()) {
-                    return snapshot.val();
-               } else {
-                    throw new Error("No data available");
-               }
-          });
+          if (snapshot.exists()) {
+               return snapshot.val();
+          } else {
+               throw new Error("No data available");
+          }
+     });
 }
 
 // Function to update user data
@@ -104,5 +132,7 @@ export {
      deleteUserData,
      listenForUserDataChanges,
      getAllUsers,
-     getUser
+     getUser,
+     saveMsgsToCloud,
+     getMsgsFromCloud
 };

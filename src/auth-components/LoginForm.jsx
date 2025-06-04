@@ -72,6 +72,7 @@ function LoginForm({ logIn, signUp }) {
                if (user.password === password.trim()) {
                     // setStatusMessage("Welcome to ChatApp!");
                     logIn(); //?
+                    localStorage.setItem("user", username);
                } else {
                     setStatusMessage("Incorrect password.");
                }

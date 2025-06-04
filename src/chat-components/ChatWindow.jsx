@@ -1,22 +1,63 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "../components/Button"
-import { writeUserData } from "../db";
+import { saveMsgsToCloud, getMsgsFromCloud } from "../db";
 
-let ChatWindow = ({ user, back }) => {
-     
-     const [messages, setMessages] = useState([
-          "These are some",
-          "Sample",
-          "Texts",
-          "Message 4",
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum praesentium quo quasi a suscipit exercitationem necessitatibus quas ipsam beatae culpa? Amet sapiente, deleniti laborum repellendus soluta tenetur iure velit mollitia!"
-     ]);
+let ChatWindow = ({ contact, back }) => {
+     const user = localStorage.getItem("user") || "Guest";
+     const [messages, setMessages] = useState([]);
      const [inputValue, setInputValue] = useState("");
+     const containerRef = useRef(null);
+
+     function scrollToBottom() {
+          const messagesContainer = document.querySelector(".chat-window-messages");
+          messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          messagesContainer.scrollBehavior = "smooth";
+     }
+
+     function handleNewMessage() {
+          // This function will be called when a new message is sent
+          scrollToBottom();
+     }
+     function messagesSetter() {
+          // Fetch messages from the cloud when the component mounts
+          getMsgsFromCloud(user, contact)
+               .then(data => {
+                    if (data) {
+                         // Convert object to array
+                         const msgsArray = Object.entries(data);
+                         setMessages(msgsArray);
+                    } else {
+                         setMessages([]);
+                    }
+               })
+               .catch(() => setMessages([]));
+
+     }
+     useEffect(() => {
+          messagesSetter();
+     }, []);
+
+     // useEffect(() => {
+     //      const el = containerRef.current;
+     //      if (el) {
+     //           // Check if content overflows
+     //                console.log(el.scrollHeight > el.clientHeight);
+     //           if (el.scrollHeight > el.clientHeight) {
+     //                el.classList.add("overflowing"); // Align to top if content overflows
+     //                el.classList.remove("not-overflowing");
+     //           } else {
+     //                el.classList.remove("overflowing"); // Align to bottom if content fits
+     //                el.classList.add("not-overflowing");
+     //           }
+     //      }
+     // }, [messages]);
 
      const sendText = () => {
           if (inputValue.trim() !== "") {
-               setMessages([...messages, inputValue]);
+               saveMsgsToCloud(user, contact, inputValue);
                setInputValue("");
+               messagesSetter();
+               // Save the message to the cloud
           }
      }
 
@@ -24,17 +65,20 @@ let ChatWindow = ({ user, back }) => {
           <div className="chat-window">
                <div className="chat-window-header">
                     <Button id="back" type="button" btnText="&#8249; back" btnFunction={back} />
-                    <h1 className="name">{user}</h1>
+                    <h1 className="name">{contact}</h1>
                     <Button id="options" type="button" btnText="&#8942;" />
                     <hr />
                </div>
+
+               {/* main content ie messages */}
                <div className="chat-window-content">
-                    <div className="chat-window-messages">
-                         {messages.map((msg, idx) => (
-                              <p className="message reply" key={idx}>{msg}</p>
+                    <div ref={containerRef} className="chat-window-messages">
+                         {messages.map(([uniqueKey, text]) => (
+                              <p className={text.type === "received" ? "received message" : "sent message"} key={uniqueKey}>{text.msg} <span className="timestamp">{text.timestamp}</span></p>
                          ))}
                     </div>
                </div>
+
                <div className="chat-window-input">
                     <input
                          type="text"

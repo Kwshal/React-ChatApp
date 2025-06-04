@@ -61,6 +61,8 @@ function SignupForm({ logIn, signUp }) {
           } else if (!user) {
                setStatusMessage("Welcome to ChatApp!");
                signUp();
+               localStorage.setItem("username", username.value.trim());
+               localStorage.setItem("password", password.value.trim());
                writeUserData(username.value.trim(), password.value.trim());
           }
      }

@@ -31,12 +31,13 @@ let UserList = ({ openChat, open }) => {
                <ul className="user-list-ul">
                     <li className="girst">
                          <h2>
-                              User Lists
+                              ChatApp
                          </h2>
+                         {/* <h4>This is a chat app</h4> */}
                          <Button id="bergurMenu" type="button" btnText="&#9776;" btnFunction={open} />
                     </li>
                     {users.map((user) => (
-                         <li key={user.key} onClick={openChat}><span className="avatar">{user.username ? user.username[0] : "?"}</span><span className="name">{user.username || user.key}</span></li>
+                         user.username !== localStorage.getItem("user") && <li key={user.key} onClick={openChat}><span className="avatar">{user.username ? user.username[0] : "?"}</span><span className="name">{user.username || user.key}</span></li>
                     ))}
                </ul>
           </div>

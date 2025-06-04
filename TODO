@@ -18,3 +18,9 @@ App
 problem: logic and signup is same. now changed
 
 add girebase - incomplete
+
+
+to do:
+cant send/receive messages
+- add contacts node gor both users on girst msg on firebase on send
+- 
