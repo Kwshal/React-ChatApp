@@ -1,7 +1,7 @@
 function Button({id, type, btnText, btnFunction}) {
   return (
     <button id={id} type={type} onClick={btnFunction}>
-      {btnText}
+      <p className="btnText">{btnText}</p>
     </button>
   );
 }

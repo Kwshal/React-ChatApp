@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 //   db
-import { getDatabase, ref, set, onValue, update, remove, push, child, get, } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
+import { getDatabase, ref, set, onValue, update, remove, push, get, } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
 const firebaseConfig = {
      apiKey: "AIzaSyCSbf8wxFIFpHJGsNvl5MzQKVht6GqMHZ4",
      authDomain: "react-chatapp-38.firebaseapp.com",
@@ -77,26 +77,11 @@ function saveMsgsToCloud(user, contact, msg) {
      });
 }
 
-function getMsgsFromCloud(user, contact) {
-     const contactRef = ref(db, `users/${user}/contacts/${contact}`);
-     return get(contactRef).then((snapshot) => {
-          if (snapshot.exists()) {
-               return snapshot.val();
-          } else {
-               return null; // No messages found
-          }
-     });
-}
-
-// Function to read data from the database
-function readUserData(userId) {
-     return get(ref(db, `users/${userId}`)).then((snapshot) => {
-          if (snapshot.exists()) {
-               return snapshot.val();
-          } else {
-               throw new Error("No data available");
-          }
-     });
+function listenForMessages(user, contact, callback) {
+    const msgsRef = ref(db, `users/${user}/contacts/${contact}`);
+    return onValue(msgsRef, snapshot => {
+        callback(snapshot.exists() ? snapshot.val() : {});
+    });
 }
 
 // Function to update user data
@@ -112,27 +97,14 @@ function deleteUserData(userId) {
      return remove(ref(db, 'users/' + userId));
 }
 
-// Function to listen for changes in user data
-function listenForUserDataChanges(userId, callback) {
-     const userRef = ref(db, 'users/' + userId);
-     onValue(userRef, (snapshot) => {
-          if (snapshot.exists()) {
-               callback(snapshot.val());
-          } else {
-               callback(null);
-          }
-     });
-}
 
 // Export the functions for use in other parts of the application
 export {
      writeUserData,
-     readUserData,
      updateUserData,
      deleteUserData,
-     listenForUserDataChanges,
      getAllUsers,
      getUser,
      saveMsgsToCloud,
-     getMsgsFromCloud
+     listenForMessages
 };

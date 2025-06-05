@@ -13,7 +13,7 @@
   --color-teal: #367588;
   --color-teal-light: #367588;
   --color-sienna: #E97451;
-  --color-sienna-light: #E97451;
+  --color-sienna-light: #e97551;
 
 }
 
@@ -44,7 +44,7 @@ body {
   justify-content: center;
   align-items: center;
   width: clamp(300px, 100vw, 350px);
-
+  gap: 10px;
   
   height: 100vh;
   padding: clamp(20px, 20vw, 30px);
@@ -64,7 +64,7 @@ body {
 .auth-form input {
   width: 100%;
   padding: 12px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   border: 1px solid #ccc;
   background-color: transparent;
   border-radius: 5px;
@@ -123,4 +123,10 @@ body {
   color: #075e54;
   text-decoration: none;
 }
-
+.status-message {
+  color: var(--color-sienna-light);
+  font-size: small;
+  /* align-self: self-start; */
+  /* margin: 10px; */
+  /* border: 1px solid #000; */
+}

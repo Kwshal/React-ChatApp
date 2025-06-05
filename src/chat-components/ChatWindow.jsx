@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Button from "../components/Button"
-import { saveMsgsToCloud, getMsgsFromCloud } from "../db";
+import { saveMsgsToCloud, listenForMessages } from "../db";
 
 let ChatWindow = ({ contact, back }) => {
      const user = localStorage.getItem("user") || "Guest";
@@ -14,28 +14,9 @@ let ChatWindow = ({ contact, back }) => {
           messagesContainer.scrollBehavior = "smooth";
      }
 
-     function handleNewMessage() {
-          // This function will be called when a new message is sent
-          scrollToBottom();
-     }
-     function messagesSetter() {
-          // Fetch messages from the cloud when the component mounts
-          getMsgsFromCloud(user, contact)
-               .then(data => {
-                    if (data) {
-                         // Convert object to array
-                         const msgsArray = Object.entries(data);
-                         setMessages(msgsArray);
-                    } else {
-                         setMessages([]);
-                    }
-               })
-               .catch(() => setMessages([]));
-
-     }
      useEffect(() => {
-          messagesSetter();
-     }, []);
+          listenForMessages(user, contact, data => setMessages(Object.entries(data)));
+     }, []);     
 
      // useEffect(() => {
      //      const el = containerRef.current;
@@ -56,7 +37,7 @@ let ChatWindow = ({ contact, back }) => {
           if (inputValue.trim() !== "") {
                saveMsgsToCloud(user, contact, inputValue);
                setInputValue("");
-               messagesSetter();
+               // messagesSetter();
                // Save the message to the cloud
           }
      }

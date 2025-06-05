@@ -60,10 +60,10 @@ function SignupForm({ logIn, signUp }) {
                setStatusMessage("Passwords do not match.");
           } else if (!user) {
                setStatusMessage("Welcome to ChatApp!");
-               signUp();
-               localStorage.setItem("username", username.value.trim());
+               localStorage.setItem("user", username.value.trim());
                localStorage.setItem("password", password.value.trim());
                writeUserData(username.value.trim(), password.value.trim());
+               signUp();
           }
      }
 
@@ -112,7 +112,7 @@ function SignupForm({ logIn, signUp }) {
                     value={confirmPassword}
                     onChange={handleConfirmPasswordInput}
                />
-               <StatusMessage status={statusMessage} />
+               {statusMessage && <StatusMessage status={statusMessage} />}
                <div className="button-group">
                     <Button id="enterButton" btnText="Sign Up" type="submit" btnFunction={handleNewButtonClick} />
                     <Button id="newButton" btnText="Aleady have an account? Login" type="button" btnFunction={logIn} />

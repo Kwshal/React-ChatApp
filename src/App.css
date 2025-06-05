@@ -62,16 +62,17 @@ hr {
   overflow-y: auto;
   scrollbar-width: none;
   position: relative;
-  gap: 1px;
+  /* gap: 1px; */
+  padding: 0 10px;
 }
 
 .user-list-ul {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 7px;
   list-style: none;
   padding: 0;
-  background-color: #e7e7e7;
+  /* background-color: #e7e7e7; */
 }
 
 .user-list-ul li {
@@ -79,10 +80,10 @@ hr {
   flex-direction: row;
   align-items: center;
   gap: 10px;
-  height: 30px;
+  height: 40px;
   /* font-size: x-large; */
   padding: 1px 15px;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   color: #666;
   /* border: 1px solid #000; */
   /* border-radius: 5px; */
@@ -91,16 +92,16 @@ hr {
   position: relative;
   /* padding: 5px; */
 }
-.user-list-ul li.girst {
+.girst {
   /* background-color: #251919; */
-  height: 40px;
+  height: 60px;
   color: #555;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 10px;
-  padding: 1px 15px;
+  padding: 5px;
   /* border: 1px solid #000; */
   /* border-radius: 5px; */
   cursor: pointer;
@@ -113,7 +114,7 @@ hr {
   text-align: center;
   /* margin-bottom: 10px; */
   /* color: #556; */
-  position: sticky;
+  position: relative;
   top: 0;
   background-color: transparent;
   /* background-color: #c2aaaa; */
@@ -249,7 +250,7 @@ hr {
 }
 
 .chat-window-messages {
-  height: 400px;
+  height: 100%;
   min-height: 0;
   width: 100%;
   display: flex;
@@ -326,4 +327,10 @@ hr {
 }
 .chat-window-messages.not-overflowing {
   justify-content: flex-end;
+}
+
+.logo {
+  text-align: center;
+  font-size: 35px;
+  /* height: 60px; */
 }

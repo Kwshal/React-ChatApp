@@ -26,23 +26,21 @@ function LoginForm({ logIn, signUp }) {
      }, []);
 
      useEffect(() => {
-          setTimeout(() => {
-               username && getUser(username)
-                    .then(data => {
+          username && getUser(username)
+               .then(data => {
                          if (data) {
                               // console.log("Fetched user data:", data);
                               setUser(data);
-                              setStatusMessage("User found.");
+                              // setStatusMessage("User found.");
                          } else {
                               // setUser(null);
-                              setStatusMessage("User not found.");
+                              // setStatusMessage("User not found.");
                          }
-                    })
-                    .catch(() => {
-                         setUser(null);
-                         setStatusMessage("Error fetching user data.");
-                    });
-          }, 400);
+               })
+               .catch(() => {
+                    setUser(null);
+                    setStatusMessage("Error fetching user data.");
+               });
      }, [username]);
 
      // Mock user data
@@ -90,6 +88,7 @@ function LoginForm({ logIn, signUp }) {
                     value={username}
                     onChange={handleUsernameInput}
                     placeholder="Username"
+                    required
                />
                <input
                     type="text"
@@ -97,6 +96,7 @@ function LoginForm({ logIn, signUp }) {
                     value={password}
                     onChange={handlePasswordInput}
                     placeholder="Password"
+                    required
                />
 
                {statusMessage && <StatusMessage status={statusMessage} />}

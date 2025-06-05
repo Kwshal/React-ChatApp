@@ -1,6 +1,6 @@
 function StatusMessage({ status }) {
   return (
-    <h5 className="status-message">{status}</h5>
+    <p className="status-message">{status}</p>
   );
 }
 
