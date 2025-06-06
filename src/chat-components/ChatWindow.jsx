@@ -45,10 +45,10 @@ let ChatWindow = ({ contact, back }) => {
      return (
           <div className="chat-window">
                <div className="chat-window-header">
-                    <Button id="back" type="button" btnText="&#8249; back" btnFunction={back} />
+                    <Button id="back" type="button" btnText="&#8249;" btnFunction={back} />
                     <h1 className="name">{contact}</h1>
                     <Button id="options" type="button" btnText="&#8942;" />
-                    <hr />
+                    {/* <hr /> */}
                </div>
 
                {/* main content ie messages */}

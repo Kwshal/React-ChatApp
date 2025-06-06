@@ -20,9 +20,13 @@ function LoginForm({ logIn, signUp }) {
           setPassword(passwordInput.value);
           setStatusMessage("");
      };
+
      useEffect(() => {
-          const username = document.getElementById("username");
-          username.focus();
+          localStorage.getItem("user") && logIn(); // Automatically log in if user is already stored in localStorage
+     }, []);
+
+     useEffect(() => {
+          !localStorage.getItem("user") && document.getElementById("username").focus();
      }, []);
 
      useEffect(() => {
@@ -57,7 +61,7 @@ function LoginForm({ logIn, signUp }) {
           if (username.trim() === "") {
                setStatusMessage("Please enter a username.");
           }
-          else if (!user.username === username.trim()) {
+          else if (!user) {
                setStatusMessage("Username not found.");
           }
           else if (username.trim() === "" && password.trim() === "") {
