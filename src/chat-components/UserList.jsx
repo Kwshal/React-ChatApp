@@ -30,7 +30,7 @@ let UserList = ({ openChat, open }) => {
                {/* <h2 className="user-list-header">Contacts</h2> */}
                <span className="girst">
                     <h2 className="logo">
-                         ChatApp_
+                         Chat-App
                          {/* <span className="user-count"> ({users.length})</span> */}
                     </h2>
                     {/* <h4>This is a chat app</h4> */}
